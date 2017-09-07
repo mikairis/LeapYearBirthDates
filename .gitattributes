@@ -1,0 +1,142 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+import java.util.*;
+public class Question1 
+{
+    public static void main(String[] args) 
+    {
+        System.out.println("Please enter a date.");
+        System.out.println("Date have to be in the following format: mm/dd/yyyy: ");
+        
+        Scanner kb = new Scanner(System.in);
+        String date1 = kb.nextLine();
+        
+        System.out.println(dateChecker(date1)); // to call the method
+    }
+       
+    public static boolean dateChecker(String date1) // method to check date correctedmess
+    {
+        boolean result;
+        int len = date1.length();
+        
+        if (len != 10) // condition and first level of check if length is greater than stipulated date or not
+        {
+            result = false;
+            System.out.println("1. Your date is not in the right format!");
+            System.out.println("Length of date entry did not fit the allowed format!");
+        }
+        else 
+        {
+            char midCh = date1.charAt(2); // alternative to check mid character validity
+            char midCh2 = date1.charAt(5); // alternative to check mid character validity
+            
+            if (midCh != '/' && midCh2 != '/') // to check for the backslashes and to see if its correct or not
+            {
+                result = false;
+                System.out.println("2. Your date is in the wrong format!");
+                System.out.println("The parentheses are wrong!");
+            }
+            else
+            {
+                char m1 = date1.charAt(0);
+                char m2 = date1.charAt(1);
+                char d1 = date1.charAt(3);
+                char d2 = date1.charAt(4);
+                char y1 = date1.charAt(6);
+                char y2 = date1.charAt(7);
+                char y3 = date1.charAt(8);
+                char y4 = date1.charAt(9);
+                
+                String monthToDate = String.valueOf(m1) + String.valueOf(m2);
+                String dayToDate = String.valueOf(d1) + String.valueOf(d2);
+                String yearToDate = String.valueOf(y1) + String.valueOf(y2) + String.valueOf(y3) + String.valueOf(y4);
+                
+                if(m1 > '1' && m2 > '2') // check month validity
+                {
+                    result = false;
+                    System.out.println("3. Your date is in the wrong format!");
+                    System.out.println("Your month are in the wrong format!");
+                }
+                else
+                {
+                    System.out.println(monthToDate);
+                    System.out.println(dayToDate);
+                    System.out.println(yearToDate);
+                    
+                    int yearDigits = Integer.parseInt(yearToDate);
+                    int monthDigits = Integer.parseInt(monthToDate);
+                    int dayDigits = Integer.parseInt(dayToDate);
+                    
+                    int leapCheck1 = yearDigits % 4;
+                    int leapCheck2 = yearDigits % 100;
+                    
+                    if (leapCheck1 == 0 && leapCheck2 != 0) // check for leap year
+                    {
+                        System.out.println("It's a leap year!");
+                        
+                        if (monthDigits == 2 || monthDigits == 02) // check for leap year sub conditions
+                        {
+                            if(dayDigits > 29)
+                            {                           
+                                System.out.println("Your date entry is wrong format!");
+                                System.out.println("The day of the entry is wrong!");
+                                System.out.println("The year you entered is a leap year, but the date you entered have exceeded the leap year allowed date!");
+                            }
+                            else
+                            {
+                                System.out.println("Correct date entry! And its a leap year!");
+                            }
+                        }
+                        if (monthDigits == 6 || monthDigits == 06) // check for leap year sub conditions
+                        {
+                            if(dayDigits > 30)
+                            {
+                                System.out.println("Your date entry is wrong format!");
+                                System.out.println("The day of the entry is wrong!");
+                                System.out.println("The year you entered is NOT a leap year, but the date you entered have exceeded the non-leap year allowed date!");
+                            }
+                            else
+                            {
+                                System.out.println("Correct date entry! And its a leap year!");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Correct date entry! And its a leap year!");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("not a leap year!");
+                        
+                        if (monthDigits == 2 || monthDigits == 02)
+                        {
+                            if(dayDigits > 28)
+                            {                           
+                                System.out.println("Your date entry is wrong format!");
+                                System.out.println("The day of the entry is wrong!");
+                            }
+                        }
+                        if (monthDigits == 6 || monthDigits == 06)
+                        {
+                            if(dayDigits > 30) // check for day validity
+                            {
+                                System.out.println("Your date entry is wrong format!");
+                                System.out.println("The day of the entry is wrong!");
+                            }
+                            else
+                            {
+                                System.out.println("Correct date entry! And its a NOT leap year!");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Correct date entry! And its not leap year!");
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}
